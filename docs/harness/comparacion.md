@@ -1,0 +1,18 @@
+# Comparación: con harness vs. sin harness
+
+## Parte A
+
+| Casilla | Con harness  |Sin harness  |
+|---|---|---|
+| **1. Archivos que propone tocar** | **23 en total.** **Modifica 7:** `package.json`, `vite.config.ts`, `tsconfig.json`, `tsconfig.app.json`, `src/index.css`, `src/App.tsx`, `src/main.tsx`.**Crea 12:** `src/lib/api.ts`, `src/auth/AuthContext.tsx`, `src/auth/ProtectedRoute.tsx`, `src/pages/{LoginPage,SignupPage,ProfilePage}.tsx`, `src/lib/utils.ts` (lo genera shadcn), `src/components/ui/{button,input,label,card,alert}.tsx` (los genera shadcn).**Borra 4:** `src/App.css`, `src/assets/{hero.png,react.svg,vite.svg}`. No menciona `components.json`, aunque `shadcn init` lo genera. | **24 en total.** **Modifica 7:** los mismos. **Crea 13:** `components.json`, `src/lib/utils.ts`, `src/lib/api.ts`, `src/auth/AuthContext.tsx`, `src/auth/RequireAuth.tsx`, `src/pages/{LoginPage,SignupPage,ProfilePage}.tsx`, `src/components/ui/*` (5 generados: `button`, `input`, `label`, `card`, `alert`).**Borra 4:** `src/App.css`, `src/assets/*` (`hero.png`, `react.svg`, `vite.svg`). |
+| **2. Convenciones respetadas / no respetadas** | Respeta: backend de solo lectura; rama `feat/<slug>` (`feat/flow-1-login-frontend`); cierre con `/commit` + `gh pr create` + `adversarial-reviewer`; mover FLOW-1 a «En curso» y luego a «En revisión» con el enlace al PR; contrato real del backend (`{ data }`, Bearer, 400/422). Cubre los 5 criterios uno por uno. No menciona: el formateo (lo hace el hook solo) ni `components.json`. | Respeta: backend de solo lectura y el contrato `{ data }`/Bearer/400/422. Lo saca del `CLAUDE.md` que creó `/init` en esa copia (ver nota) y de leer el validador. No aparece ninguna regla de proceso: ni rama, ni commit, ni PR, ni revisión, ni movimiento del ticket. Tampoco vincula cada criterio con su parte del plan. |
+| **3. Veces que intervine** | 1: la primera ejecución se paró porque mi tablero no tenía «Por hacer» ni «En revisión». Ajusté el tablero y la relancé. La sesión se cortó antes de aprobar o rechazar el plan. | 1: tuve que autorizar el MCP de Atlassian. Con el `/init` se creó un `CLAUDE.md` en esta copia aunque me quedó la duda si no debí haber ejecutado el init. |
+| **4. Qué arreglaría a mano** | Menor: el cierre de sesión debe borrar el token aunque falle `POST /logout`, porque el plan no lo garantiza. Añadir `components.json` a la lista. El cierre de sesión va más allá de los criterios; decidir si se queda. | **Bloqueante:** propone omitir `fullName` en el registro («opcional, no»). Comprobado con el validador real: sin el campo, el backend responde `422 "The fullName field must be defined"`, así que **ningún registro funcionaría** (criterio 1 roto). Además faltan rama, commit y PR, que habría que pedir aparte. |
+
+## Parte B
+
+1. **Hasta qué pieza llegué y cuál me costó más de lo que esperaba:** He realizado el ejercicio posteriormente ya con los prompts de la sesión por lo cual finalicé todos los puntos. Me enfoqué en revisar y entender a detalle por lo cual realice un esfuerzo con un costo similar en la creación de las skills, subagente y el hook.
+
+2. **La primera diferencia que vi entre las dos salidas, y en qué me fijé para verla:** El plan con harness ofreció un análisis más detallado, listó criterios, procesos y señalando dudas de puntos abiertos a ambigüedad
+
+3. **Algo que dejé escrito en el harness y que el agente no cumplió igualmente:** Ya he revisado con cuidado y no logro identificar. Posiblemente al haber realizado el ejercicio posterior a la sesión y con los prompts de la misma el harness haya quedado más sólido. Dejaré para seguir con los siguientes ejercicios para poder ponerme al día.
