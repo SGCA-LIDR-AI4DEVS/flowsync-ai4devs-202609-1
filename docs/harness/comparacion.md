@@ -15,4 +15,4 @@
 
 2. **La primera diferencia que vi entre las dos salidas, y en qué me fijé para verla:** El plan con harness ofreció un análisis más detallado, listó criterios, procesos y señalando dudas de puntos abiertos a ambigüedad
 
-3. **Algo que dejé escrito en el harness y que el agente no cumplió igualmente:** Ya he revisado con cuidado y no logro identificar. Posiblemente al haber realizado el ejercicio posterior a la sesión y con los prompts de la misma el harness haya quedado más sólido. Dejaré para seguir con los siguientes ejercicios para poder ponerme al día.
+3. **Algo que dejé escrito en el harness y que el agente no cumplió igualmente:** Ya he revisado con cuidado y no logro identificar. ACTUALIZACION. Antes de cerrar la sesión y moverme al siguiente ejercicio indiqué a Claude que ya había realizado el commit y el push y me dió un caso que no se había cumplido: en la skill priority-ticket se indicó listar los archivos a crear o modificar y en el plan no se tuvo esa lista.
