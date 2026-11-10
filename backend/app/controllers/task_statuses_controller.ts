@@ -2,6 +2,8 @@ import Task from '#models/task'
 import { updateTaskStatusValidator } from '#validators/task'
 import type { HttpContext } from '@adonisjs/core/http'
 import TaskTransformer from '#transformers/task_transformer'
+import { ApiResponse } from '@foadonis/openapi/decorators'
+import { NotFoundError, TaskResponse, UnauthorizedError, ValidationError } from '#openapi/schemas'
 
 export default class TaskStatusesController {
   /**
@@ -15,6 +17,26 @@ export default class TaskStatusesController {
    * prohibidas: volver de «hecho» a «pendiente» es justamente lo que arregla
    * un clic dado por error.
    */
+  @ApiResponse({
+    status: 200,
+    description: 'La tarea con el estado ya cambiado.',
+    type: TaskResponse,
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Sin token o con un token no válido.',
+    type: UnauthorizedError,
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'No existe ninguna tarea con ese id.',
+    type: NotFoundError,
+  })
+  @ApiResponse({
+    status: 422,
+    description: '`status` falta o no es `pending`, `in_progress` ni `done`.',
+    type: ValidationError,
+  })
   async update({ params, request, serialize }: HttpContext) {
     const task = await Task.findOrFail(params.id)
     const { status } = await request.validateUsing(updateTaskStatusValidator)
